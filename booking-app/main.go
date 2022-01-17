@@ -12,9 +12,7 @@ func main() {
 	var remainingTickets uint = 50
 	var bookings []string
 
-	fmt.Printf("Welcome to %v booking application\n", conferenceName)
-	fmt.Printf("We have total of %v tickets and %v still available\n", conferenceTickets, remainingTickets)
-	fmt.Println("Get your tickets here to attend")
+	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
 	for {
 
@@ -85,4 +83,11 @@ func main() {
 		}
 
 	}
+}
+
+func greetUsers(conferenceName string, conferenceTickets uint, remainingTickets uint) {
+
+	fmt.Printf("Welcome to %v booking application\n", conferenceName)
+	fmt.Printf("We have total of %v tickets and %v still available\n", conferenceTickets, remainingTickets)
+	fmt.Println("Get your tickets here to attend")
 }
