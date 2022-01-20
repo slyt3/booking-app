@@ -16,41 +16,15 @@ func main() {
 
 	for {
 
-		var firstName string
-		var lastName string
-		var email string
-		var userTickets uint
-
-		// asks user for first name
-
-		fmt.Print("Enter your first name: ")
-		fmt.Scan(&firstName)
-
-		// asks user for they last name
-
-		fmt.Print("Enter your last name: ")
-		fmt.Scan(&lastName)
-
-		// asks user for they email
-
-		fmt.Print("Enter your email address: ")
-		fmt.Scan(&email)
-
-		//asks user how much tickets do they want
-
-		fmt.Print("Enter number of tickets: ")
-		fmt.Scan(&userTickets)
+		firstName, lastName, email, userTickets := getUserInput()
 
 		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
 
-			remainingTickets = remainingTickets - userTickets
+			// book tickets
 
-			bookings = append(bookings, firstName+" "+lastName)
-
-			fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
-			fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+			remainingTickets, bookings := bookTickets(remainingTickets, bookings, firstName, lastName, userTickets, email, conferenceName)
 
 			var printsFirstNames []string = FirstNames(bookings)
 
@@ -102,4 +76,46 @@ func validateUserInput(firstName string, lastName string, email string, userTick
 	var isValidTicketNumber bool = userTickets > 0 && userTickets <= remainingTickets
 
 	return isValidName, isValidEmail, isValidTicketNumber
+}
+
+func getUserInput() (string, string, string, uint) {
+
+	var firstName string
+	var lastName string
+	var email string
+	var userTickets uint
+
+	// asks user for first name
+
+	fmt.Print("Enter your first name: ")
+	fmt.Scan(&firstName)
+
+	// asks user for they last name
+
+	fmt.Print("Enter your last name: ")
+	fmt.Scan(&lastName)
+
+	// asks user for they email
+
+	fmt.Print("Enter your email address: ")
+	fmt.Scan(&email)
+
+	//asks user how much tickets do they want
+
+	fmt.Print("Enter number of tickets: ")
+	fmt.Scan(&userTickets)
+
+	return firstName, lastName, email, userTickets
+}
+
+func bookTickets(remainingTickets uint, bookings []string, firstName string, lastName string, userTickets uint, email string, conferenceName string) (uint, []string) {
+	remainingTickets = remainingTickets - userTickets
+
+	bookings = append(bookings, firstName+" "+lastName)
+
+	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
+	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+
+	return remainingTickets, bookings
+
 }
