@@ -27,11 +27,11 @@ func main() {
 
 	greetUsers()
 
-	firstName, lastName, email, userTickets := getUserInput()
-
-	isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets)
-
 	for {
+		firstName, lastName, email, userTickets := getUserInput()
+
+		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets)
+
 		if isValidName && isValidEmail && isValidTicketNumber {
 
 			// book tickets
